@@ -14,7 +14,9 @@ tmr.delay(meas_delay_ms*1000) --wait for stability
 level=adc.read(0)*100000
 gpio.write(pin_boost,gpio.LOW) --boost off
 level=(level-meas_offset)/meas_divisor
+level=math.floor(level)
 level=tostring(level)
+print("Level: "..level)
 end
 
 -- DHT22 sensor
