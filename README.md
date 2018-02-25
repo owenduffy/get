@@ -22,14 +22,21 @@ GET requests are usually fairly easy to get going, but you may find the RESTED a
 
 The deep sleep function used depends on an external connection which you must make for it to work properly: connect a SB or germainium diode anode to RST, cathode to GPIO16 (D0).
  
-Tested on:
+Tested on float firmware:
+
 NodeMCU custom build by frightanic.com
-    branch: master
-    commit: 5073c199c01d4d7bbbcd0ae1f761ecc4687f7217
-    SSL: true
-    modules: adc,bit,dht,encoder,file,gpio,http,mqtt,net,node,ow,spi,tmr,uart,wifi,tls
- build  built on: 2018-02-14 02:37
- powered by Lua 5.1.4 on SDK 2.1.0(116b762)
+
+branch: master
+
+commit: 5073c199c01d4d7bbbcd0ae1f761ecc4687f7217
+
+SSL: true
+
+modules: adc,bit,dht,encoder,file,gpio,http,mqtt,net,node,ow,spi,tmr,uart,wifi,tls
+
+built on: 2018-02-14 02:37
+
+powered by Lua 5.1.4 on SDK 2.1.0(116b762)
 
 # Programming a bare ESP8266 board
 
@@ -60,25 +67,27 @@ Lets say the tank holds 15,000l when full, is 3m deep, and we are using a 4m 4-2
 
 ## Gather calibration raw values
 
-Start by configuring the device to connect to the display service, wet meas_offset=0 and meas_divisor=1.
+Start by configuring the device to connect to the display service, wet meas_intercept=0 and meas_mult=1.
 
-Set the sensor to minimum depth, write down the displayed value (A) and minimum depth (in intended display units) (B).
+Set the sensor to some depth (eg minimum), write down the displayed value (A) and minimum depth (in intended display units) (B).
 
-Set the sensor to some other depth, write down the displayed value (C) and that depth (in intended display units) (D).
+Set the sensor to some other depth (well away from the last), write down the displayed value (C) and that depth (in intended display units) (D).
 
-In our example, A=19,900,000, B=0, C=47,400,000, D=12,000.
+In our example, A=199, B=0, C=474, D=12,000.
 
-It is possible with this scheme to set a non-zero base to the displayed value, and to scale the displayed value to end-user units,
-and the calibration process offsets ettors in the sensor, ESP8266 a0 voltage divier and MCU voltage reference.
+It is possible with this scheme to offset the base of the displayed value, and to scale the displayed value to end-user units,
+and the calibration process offsets errors in the sensor, ESP8266 a0 voltage divider and MCU voltage reference.
 
 ## Calculate calibration constants
 
-meas_divisor=(C-A)/D=2,292
+meas_mult=(D-B)/(C-A)=43.636 (use at least four significant digits)
 
-meas_offset=A-meas_divisor/2=19,898,854
+meas_intercept=((B+D)-meas_mult*(A+C))/2=-8684.6
+
+set meas_fmt to %0.0f for 0 decimal point precision (%0.2f for 2 decimal points precision... got it).
 
 ## Set calibration constants
 
-Start configuring the device to connect to the display service, and set meas_offset and meas_divisor to the new calculated values.
+Start configuring the device to connect to the display service, and set meas_intercept meas_mult, and meas_fmt to the new calculated values.
 
 ***

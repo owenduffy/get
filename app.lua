@@ -11,27 +11,21 @@ humidity = 0
 function get_420()
 gpio.write(pin_boost,gpio.HIGH) --boost on
 tmr.delay(meas_delay_ms*1000) --wait for stability
-level=adc.read(0)*100000
+level=adc.read(0)
 gpio.write(pin_boost,gpio.LOW) --boost off
-level=(level-meas_offset)/meas_divisor
-level=math.floor(level)
-level=tostring(level)
+level=meas_mult*level+meas_intercept
+level=string.format(meas_fmt,level)
 print("Level: "..level)
 end
 
 -- DHT22 sensor
 function get_dht()
   dht=require("dht")
-  status,temp,humi,temp_decimial,humi_decimial = dht.read(pin_dht)
+  status,temp,humi,temp_decimal,humi_decimal = dht.read(pin_dht)
     if( status == dht.OK ) then
-      -- Prevent "0.-2 deg C" or "-2.-6"      
-      temperature = temp.."."..(math.abs(temp_decimial)/100)
-      humidity = humi.."."..(math.abs(humi_decimial)/100)
-      -- If temp is zero and temp_decimal is negative, then add "-" to the temperature string
-      if(temp == 0 and temp_decimial<0) then
-        temperature = "-"..temperature
-      end
-      print("Temperature: "..temperature.." deg C")
+      temperature=string.format("%0.1f",temp)
+      humidity=string.format("%0.1f",humi)
+      print("Temperature: "..temperature.."C")
       print("Humidity: "..humidity.."%")
     elseif( status == dht.ERROR_CHECKSUM ) then      
       print( "DHT Checksum error" )
@@ -45,7 +39,6 @@ function get_dht()
 end
 
 function get_sensor_Data()
-get_dht()
 get_420()
 get_dht()
 end

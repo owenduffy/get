@@ -7,9 +7,10 @@ cfgdefs={
 "1",
 "4",
 "600",
-"2000",
+"500",
 "0",
 "1",
+"%0.1f",
 "http://api.thingspeak.com/update",
 ""
 }
@@ -22,8 +23,9 @@ cfgvars={
 "pin_dht"
 "meas_period"
 "meas_delay_ms"
-"meas_offset"
-"meas_divisor"
+"meas_intercept"
+"meas_mult",
+"meas_fmt",
 "rest_url",
 "apikey",
 }
