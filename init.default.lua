@@ -24,7 +24,7 @@ cfgvars={
 "meas_period"
 "meas_delay_ms"
 "meas_intercept"
-"meas_mult",
+"meas_slope",
 "meas_fmt",
 "rest_url",
 "apikey",

@@ -21,9 +21,9 @@ i2=Math.abs(frmCalc.i2.value);
 r1=Math.abs(frmCalc.r1.value);
 r2=Math.abs(frmCalc.r2.value);
 
-meas_mult=(i2-i1)/(r2-r1);
-meas_intercept=((i1+i2)-meas_mult*(r1+r2))/2;
-frmCalc.mm.value=meas_mult.toPrecision(5);
+meas_slope=(i2-i1)/(r2-r1);
+meas_intercept=((i1+i2)-meas_slope*(r1+r2))/2;
+frmCalc.mm.value=meas_slope.toPrecision(5);
 frmCalc.mi.value=meas_intercept.toPrecision(5);
 }
 
@@ -60,8 +60,9 @@ frmCalc.mi.value="";
 
 
 <h1>4-20mA calibration constants calculator</h1>
-<p>This calculator estimates the impedance and equivalent series inductance of 
-rectangular cross section ferrite toroid cored inductors at HF.</p>
+<p>Set intial meas_slope=1 and meas_intercept=0 on the target and make the 
+Scenario 1 and Scenario 2 measurements to find the new calibration constants 
+meas_slope and meas_intercept for the target.</p>
 
 <form name="frmCalc">
   <table cellspacing="5" cellpadding="0">
@@ -83,19 +84,19 @@ rectangular cross section ferrite toroid cored inductors at HF.</p>
         <tr>
         <td>Scenario 1</td>
         <td>
-		(B)
+		(A)
 		<input name="i1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="2" style="height: 22px" type="text"></td>
         <td>
-		(A)
+		(B)
 		<input name="r1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="3" style="height: 22px" type="text"></td>
         </tr>
       <tr>
         <td>Scenario 2</td>
         <td>
-		(D)
+		(C)
 		<input name="i2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="4" style="height: 22px" type="text"></td>
         <td>
-		(C)
+		(D)
 		<input name="r2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="5" style="height: 22px" type="text"></td>
       </tr>
       <tr>
@@ -105,7 +106,7 @@ rectangular cross section ferrite toroid cored inductors at HF.</p>
         <td colspan="3"><strong>Results:</strong></td>
       </tr>
         <tr>
-        <td>meas_mult</td>
+        <td>meas_slope</td>
         <td colspan="2">
 		<input name="mm" size="20" maxlength="80" readonly="readonly" style="height: 22px" type="text"></td>
         </tr>

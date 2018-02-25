@@ -67,7 +67,7 @@ Lets say the tank holds 15,000l when full, is 3m deep, and we are using a 4m 4-2
 
 ## Gather calibration raw values
 
-Start by configuring the device to connect to the display service, wet meas_intercept=0 and meas_mult=1.
+Start by configuring the device to connect to the display service, wet meas_intercept=0 and meas_slope=1.
 
 Set the sensor to some depth (eg minimum), write down the input value (in intended display units) (A) displayed quantity (B).
 
@@ -82,15 +82,15 @@ and the calibration process offsets errors in the sensor, ESP8266 a0 voltage div
 
 ## Calculate calibration constants
 
-meas_mult=(C-A)/(D-B)=43.636 (use at least four significant digits)
+meas_slope=(C-A)/(D-B)=43.636 (use at least four significant digits)
 
-meas_intercept=((A+C)-meas_mult*(B+D))/2=-8684.6
+meas_intercept=((A+C)-meas_slope*(B+D))/2=-8684.6
 
 set meas_fmt to %0.0f for 0 decimal point precision (%0.2f for 2 decimal points precision... got it).
 
 ## Set calibration constants
 
-Start configuring the device to connect to the display service, and set meas_intercept meas_mult, and meas_fmt to the new calculated values.
+Start configuring the device to connect to the display service, and set meas_intercept meas_slope, and meas_fmt to the new calculated values.
 
 Useful calculator tool: [4-20mA calibration constants calculator](http://owenduffy.net/calc/4-20cal.htm)
 

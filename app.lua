@@ -11,9 +11,9 @@ humidity = 0
 function get_420()
 gpio.write(pin_boost,gpio.HIGH) --boost on
 tmr.delay(meas_delay_ms*1000) --wait for stability
-level=adc.read(0)
 gpio.write(pin_boost,gpio.LOW) --boost off
-level=meas_mult*level+meas_intercept
+level=adc.read(0)
+level=meas_slope*level+meas_intercept
 level=string.format(meas_fmt,level)
 print("Level: "..level)
 end
