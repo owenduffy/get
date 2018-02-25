@@ -7,6 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- base href="http://owenduffy.net/calc/4-20cal.htm" -->
+  <style type="text/css">
+  .auto-style91 {
+	  border-style: solid;
+	  border-width: 2px;
+  }
+  .auto-style92 {
+	  border-width: 2px;
+  }
+  </style>
 <script language="JavaScript" type="text/javascript">
 /*
 Copyright: 2018 Owen Duffy. All rights reserved.
@@ -16,15 +25,20 @@ id='$Id: toroid.htm';
 
 function calc_u(){
 rst();
-i1=Math.abs(frmCalc.i1.value);
-i2=Math.abs(frmCalc.i2.value);
-r1=Math.abs(frmCalc.r1.value);
-r2=Math.abs(frmCalc.r2.value);
+mm0=frmCalc.mm0.value*1.0;
+mi0=frmCalc.mi0.value*1.0;
+i1=frmCalc.i1.value*1.0;
+i2=frmCalc.i2.value*1.0;
+r1=(frmCalc.r1.value-mi0)/mm0;
+r2=(frmCalc.r2.value-mi0)/mm0;
 
 meas_slope=(i2-i1)/(r2-r1);
 meas_intercept=((i1+i2)-meas_slope*(r1+r2))/2;
 frmCalc.mm.value=meas_slope.toPrecision(5);
 frmCalc.mi.value=meas_intercept.toPrecision(5);
+//frmCalc.mm.value=r1.toPrecision(5);
+//frmCalc.mi.value=r2.toPrecision(5);
+
 }
 
 
@@ -60,59 +74,71 @@ frmCalc.mi.value="";
 
 
 <h1>4-20mA calibration constants calculator</h1>
-<p>Set intial meas_slope=1 and meas_intercept=0 on the target and make the 
-Scenario 1 and Scenario 2 measurements to find the new calibration constants 
-meas_slope and meas_intercept for the target.</p>
+<p>Set intial meas_slope=1 and meas_intercept=0 on the target and the form, and 
+make the Scenario 1 and Scenario 2 measurements to find the new calibration 
+constants meas_slope and meas_intercept for the target.</p>
+<p>It is possible to calculate new calibration constants from other intial 
+constants, enter the actual values in the intial boxes. </p>
 
 <form name="frmCalc">
-  <table cellspacing="5" cellpadding="0">
+  <table class="auto-style91" cellspacing="5" cellpadding="0">
     <tbody>
       <tr>
-        <td colspan="3"><strong>Inputs:</strong></td>
+        <td colspan="3" class="auto-style92"><strong>Inputs:</strong></td>
       </tr>
       <tr>
-        <td colspan="3">
+        <td colspan="3" class="auto-style92">
 		<input name="title" size="60" maxlength="60" onfocus="rst(this.form)" tabindex="1" type="text"></td>
       </tr>
+        <tr>
+        <td class="auto-style92">initial meas_slope</td>
+        <td colspan="2" class="auto-style92">
+		<input name="mm0" value="1" size="20" maxlength="80" style="height: 22px" tabindex="2" type="text"></td>
+        </tr>
+		<tr>
+        <td class="auto-style92">initial meas_intercept</td>
+        <td colspan="2" class="auto-style92">
+		<input name="mi0" value="0" size="20" maxlength="80" style="height: 22px" tabindex="3" type="text"></td>
+        </tr>
       <tr>
-        <td>&nbsp;</td>
-        <td>
+        <td class="auto-style92">&nbsp;</td>
+        <td class="auto-style92">
 		Input</td>
-        <td>
+        <td class="auto-style92">
 		Result</td>
       </tr>
         <tr>
-        <td>Scenario 1</td>
-        <td>
+        <td class="auto-style92">Scenario 1</td>
+        <td class="auto-style92">
 		(A)
-		<input name="i1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="2" style="height: 22px" type="text"></td>
-        <td>
+		<input name="i1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="4" style="height: 22px" type="text"></td>
+        <td class="auto-style92">
 		(B)
-		<input name="r1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="3" style="height: 22px" type="text"></td>
+		<input name="r1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="5" style="height: 22px" type="text"></td>
         </tr>
       <tr>
-        <td>Scenario 2</td>
-        <td>
+        <td class="auto-style92">Scenario 2</td>
+        <td class="auto-style92">
 		(C)
-		<input name="i2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="4" style="height: 22px" type="text"></td>
-        <td>
+		<input name="i2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="6" style="height: 22px" type="text"></td>
+        <td class="auto-style92">
 		(D)
-		<input name="r2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="5" style="height: 22px" type="text"></td>
+		<input name="r2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="7" style="height: 22px" type="text"></td>
       </tr>
       <tr>
-        <td colspan="3">&nbsp;<input value="Calculate" onclick="calc_u();" tabindex="6" type="button"></td>
+        <td colspan="3" class="auto-style92">&nbsp;<input value="Calculate" onclick="calc_u();" tabindex="8" type="button"></td>
       </tr>
       <tr>
-        <td colspan="3"><strong>Results:</strong></td>
+        <td colspan="3" class="auto-style92"><strong>Results:</strong></td>
       </tr>
         <tr>
-        <td>meas_slope</td>
-        <td colspan="2">
+        <td class="auto-style92">meas_slope</td>
+        <td colspan="2" class="auto-style92">
 		<input name="mm" size="20" maxlength="80" readonly="readonly" style="height: 22px" type="text"></td>
         </tr>
         <tr>
-        <td>meas_intercept</td>
-        <td colspan="2">
+        <td class="auto-style92">meas_intercept</td>
+        <td colspan="2" class="auto-style92">
 		<input name="mi" size="20" maxlength="80" readonly="readonly" style="height: 22px" type="text"></td>
         </tr>
     </tbody>
