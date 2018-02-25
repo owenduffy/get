@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>4-20mA calibration constants calculator</title>
+  <link rel="stylesheet" type="text/css" href="4-20mA%20calibration%20constants%20calculator_files/default.css">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- base href="http://owenduffy.net/calc/4-20cal.htm" -->
+<script language="JavaScript" type="text/javascript">
+/*
+Copyright: 2018 Owen Duffy. All rights reserved.
+*/
+
+id='$Id: toroid.htm';
+
+function calc_u(){
+rst();
+i1=Math.abs(frmCalc.i1.value);
+i2=Math.abs(frmCalc.i2.value);
+r1=Math.abs(frmCalc.r1.value);
+r2=Math.abs(frmCalc.r2.value);
+
+meas_mult=(i2-i1)/(r2-r1);
+meas_intercept=((i1+i2)-meas_mult*(r1+r2))/2;
+frmCalc.mm.value=meas_mult.toPrecision(5);
+frmCalc.mi.value=meas_intercept.toPrecision(5);
+}
+
+
+function rst(){
+frmCalc.mm.value="";
+frmCalc.mi.value="";
+}    
+</script></head>
+
+
+<body>
+  
+  
+  <style type="text/css">
+.auto-style1 {
+	font-size: xx-large;
+	font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+  
+
+  <table width="100%" cellspacing="5" cellpadding="0" border="0">
+    <tbody><tr>
+      <td class="auto-style1" width="50%"><a href="http://owenduffy.net/index.htm">OwenDuffy.net</a>&nbsp;</td>
+      <td width="50%"><p align="right">
+      </p></td>
+    </tr>
+  </tbody></table>
+<p></p>
+
+
+<hr>
+
+
+<h1>4-20mA calibration constants calculator</h1>
+<p>This calculator estimates the impedance and equivalent series inductance of 
+rectangular cross section ferrite toroid cored inductors at HF.</p>
+
+<form name="frmCalc">
+  <table cellspacing="5" cellpadding="0">
+    <tbody>
+      <tr>
+        <td colspan="3"><strong>Inputs:</strong></td>
+      </tr>
+      <tr>
+        <td colspan="3">
+		<input name="title" size="60" maxlength="60" onfocus="rst(this.form)" tabindex="1" type="text"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+		Input</td>
+        <td>
+		Result</td>
+      </tr>
+        <tr>
+        <td>Scenario 1</td>
+        <td>
+		(B)
+		<input name="i1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="2" style="height: 22px" type="text"></td>
+        <td>
+		(A)
+		<input name="r1" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="3" style="height: 22px" type="text"></td>
+        </tr>
+      <tr>
+        <td>Scenario 2</td>
+        <td>
+		(D)
+		<input name="i2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="4" style="height: 22px" type="text"></td>
+        <td>
+		(C)
+		<input name="r2" size="15" maxlength="12" onfocus="rst(this.form)" tabindex="5" style="height: 22px" type="text"></td>
+      </tr>
+      <tr>
+        <td colspan="3">&nbsp;<input value="Calculate" onclick="calc_u();" tabindex="6" type="button"></td>
+      </tr>
+      <tr>
+        <td colspan="3"><strong>Results:</strong></td>
+      </tr>
+        <tr>
+        <td>meas_mult</td>
+        <td colspan="2">
+		<input name="mm" size="20" maxlength="80" readonly="readonly" style="height: 22px" type="text"></td>
+        </tr>
+        <tr>
+        <td>meas_intercept</td>
+        <td colspan="2">
+		<input name="mi" size="20" maxlength="80" readonly="readonly" style="height: 22px" type="text"></td>
+        </tr>
+    </tbody>
+  </table>
+</form>
+
+<p>The calculator does not do a lot of error checking, if you enter nonsense, it 
+will produce nonsense. NaN means not a number, check the input values.</p>
+<h1>Changes</h1>
+<div align="left">
+<table cellspacing="5" cellpadding="0" border="2">
+  <tbody>
+    <tr>
+      <td><b>Version</b></td>
+      <td><b>Date</b></td>
+      <td><b>Description</b></td>
+    </tr>
+    <tr>
+      <td><b>1.01</b></td>
+      <td>25/02/2018</td>
+      <td>Initial.</td>
+    </tr>
+    <tr>
+      <td><b>1.02</b></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><b>1.03</b></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><b>1.04</b></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><b>1.05</b></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<hr>
+
+<script language="JavaScript" type="text/javascript">
+<!-- Begin code
+if(top!=self) top.location.href=self.location.href
+// End code -->
+</script>
+<p>© Copyright:
+Owen Duffy 1995, 2017. All rights reserved. <a href="http://owenduffy.net/disclaimer.htm" target="_blank">Disclaimer</a>.</p>
+<p><br>
+</p>
+
+
+
+</body></html>
