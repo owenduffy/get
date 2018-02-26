@@ -39,8 +39,10 @@ function get_dht()
 end
 
 function get_sensor_Data()
-get_420()
-get_dht()
+  get_420()
+  if (pin_dht~="") then
+    get_dht()
+  end
 end
 
 function swf()
