@@ -17,6 +17,15 @@ Example URLs for the REST host are:
 
 
 Edit the httpgetreq() definitition in init.lua to suit your REST host, eg:
+
+```lua
+function httpreq() 
+  req=rest_url.."?api_key="..apikey.."&field1="..level.."&field2="..temperature.."&field3="..humidity
+  body=""
+  print("req:"..req.."\nbody:"..body)
+  return req,body
+end
+```
  
 GET requests are usually fairly easy to get going, but you may find the RESTED add-in for Firefox and Chrome to be useful, also http://httpbin.org/get for testing.
 
@@ -24,19 +33,15 @@ The deep sleep function used depends on an external connection which you must ma
  
 Tested on float firmware:
 
+```
 NodeMCU custom build by frightanic.com
-
-branch: master
-
-commit: 5073c199c01d4d7bbbcd0ae1f761ecc4687f7217
-
-SSL: true
-
-modules: adc,bit,dht,encoder,file,gpio,http,mqtt,net,node,ow,spi,tmr,uart,wifi,tls
-
-built on: 2018-02-14 02:37
-
-powered by Lua 5.1.4 on SDK 2.1.0(116b762)
+	branch: master
+	commit: 5073c199c01d4d7bbbcd0ae1f761ecc4687f7217
+	SSL: true
+	modules: adc,bit,dht,encoder,file,gpio,http,mqtt,net,node,ow,spi,tmr,uart,wifi,tls
+ build 	built on: 2018-02-14 02:37
+ powered by Lua 5.1.4 on SDK 2.1.0(116b762)
+```
 
 # Programming a bare ESP8266 board
 
