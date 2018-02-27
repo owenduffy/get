@@ -99,4 +99,9 @@ Start configuring the device to connect to the display service, and set meas_int
 
 Useful calculator tool: [4-20mA calibration constants calculator](http://owenduffy.net/calc/4-20cal.htm)
 
+# FAQ
+
+[FAQ](FAQ.md).
+
+
 ***

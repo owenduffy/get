@@ -25,22 +25,18 @@ id='$Id: toroid.htm';
 
 function calc_u(){
 rst();
-mm0=frmCalc.mm0.value*1.0;
-mi0=frmCalc.mi0.value*1.0;
-i1=frmCalc.i1.value*1.0;
-i2=frmCalc.i2.value*1.0;
-r1=(frmCalc.r1.value-mi0)/mm0;
-r2=(frmCalc.r2.value-mi0)/mm0;
+mm0=Number(frmCalc.mm0.value);
+mi0=Number(frmCalc.mi0.value);
+i1=Number(frmCalc.i1.value);
+i2=Number(frmCalc.i2.value);
+r1=(Number(frmCalc.r1.value)-mi0)/mm0;
+r2=(Number(frmCalc.r2.value)-mi0)/mm0;
 
 meas_slope=(i2-i1)/(r2-r1);
 meas_intercept=((i1+i2)-meas_slope*(r1+r2))/2;
 frmCalc.mm.value=meas_slope.toPrecision(5);
 frmCalc.mi.value=meas_intercept.toPrecision(5);
-//frmCalc.mm.value=r1.toPrecision(5);
-//frmCalc.mi.value=r2.toPrecision(5);
-
 }
-
 
 function rst(){
 frmCalc.mm.value="";

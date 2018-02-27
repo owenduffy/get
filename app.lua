@@ -109,6 +109,10 @@ if (debug>0) then
 else
   gpio.write(pin_boost,gpio.LOW) --boost off
 end
+if(meas_period>60) then
+if (pin_dht~="" and meas_period>60) then
+  get_dht()
+end
 
 --setup wifi
 swf()
