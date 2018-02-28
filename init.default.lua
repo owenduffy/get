@@ -46,7 +46,7 @@ if gpio.read(3) == 0 then
   print("Release to stop boot...")
   tmr.delay(4000000)
   if gpio.read(3) == 0 then
-    print("Release now (wifit cfg)...")
+    print("Release now (wifi cfg)...")
     print("Starting wifi config mode...")
     dofile("wifi_setup.lua")
     return
