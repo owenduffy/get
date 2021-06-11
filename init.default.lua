@@ -6,7 +6,9 @@ cfgdefs={
 "Tank1",
 "1",
 "4",
+"3",
 "600",
+"0",
 "500",
 "0",
 "1",
@@ -20,8 +22,10 @@ cfgvars={
 "wifi_password",
 "id",
 "pin_boost"
-"pin_dht"
+"pin_scl",
+"pin_sda",
 "meas_period"
+"altitude",
 "meas_delay_ms"
 "meas_intercept"
 "meas_slope",

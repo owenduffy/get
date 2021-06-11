@@ -34,13 +34,16 @@ The deep sleep function used depends on an external connection which you must ma
 Tested on float firmware:
 
 ```
-NodeMCU custom build by frightanic.com
-	branch: master
-	commit: 5073c199c01d4d7bbbcd0ae1f761ecc4687f7217
+odeMCU 3.0.0.0 built on nodemcu-build.com provided by frightanic.com
+	branch: release
+	commit: d4ae3c364bd8ae3ded8b77d35745b7f07879f5f9
+	release: 
+	release DTS: 202105102018
 	SSL: true
-	modules: adc,bit,dht,encoder,file,gpio,http,mqtt,net,node,ow,spi,tmr,uart,wifi,tls
- build 	built on: 2018-02-14 02:37
- powered by Lua 5.1.4 on SDK 2.1.0(116b762)
+	build type: float
+	LFS: 0x0 bytes total capacity
+	modules: adc,bit,bme280_math,dht,encoder,file,gpio,http,i2c,mdns,mqtt,net,node,ow,sntp,spi,tmr,uart,wifi,tls
+ build 2021-06-10 08:45 powered by Lua 5.1.4 on SDK 3.0.1-dev(fce080e)
 ```
 
 # Programming a bare ESP8266 board

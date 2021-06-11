@@ -18,30 +18,24 @@ level=string.format(meas_fmt,level)
 print("Level: "..level)
 end
 
--- DHT22 sensor
-function get_dht()
-  dht=require("dht")
-  status,temp,humi,temp_decimal,humi_decimal = dht.read(pin_dht)
-    if( status == dht.OK ) then
-      temperature=string.format("%0.1f",temp)
-      humidity=string.format("%0.1f",humi)
-      print("Temperature: "..temperature.."C")
-      print("Humidity: "..humidity.."%")
-    elseif( status == dht.ERROR_CHECKSUM ) then      
-      print( "DHT Checksum error" )
-      temperature=-1 --TEST
-    elseif( status == dht.ERROR_TIMEOUT ) then
-      print( "DHT Time out" )
-      temperature=-2 --TEST
-    end
-  dht=nil
-  package.loaded["dht"]=nil
+function get_bme280()
+i2c.setup(0,pin_sda,pin_scl,i2c.SLOW)
+s=require('bme280').setup(0)
+temp,qfe,humi,qnh=s:read(altitude)
+temperature=string.format("%0.1f",temp)
+--qfe=string.format("%0.1f",qfe)
+humidity=string.format("%0.1f",humi)
+--qnh=string.format("%0.1f",qnh)
+print("Temperature: "..temperature.."C")
+print("Humidity: "..humidity.."%")
+--print("QFE: "..qfe.."hPa")
+--print("QNH: "..qnh.."hPa")
 end
 
 function get_sensor_Data()
   get_420()
-  if (pin_dht~="") then
-    get_dht()
+  if (pin_scl~="" and pin_sda~="") then
+    get_bme280()
   end
 end
 
@@ -61,8 +55,6 @@ end
 function cbsrest()
   print("\ncbsrest:")
   print(tmr.now())
-  tmr.unregister(2)
---  do return end 
   print("wifi.sta.status()",wifi.sta.status())
   if wifi.sta.status() ~= 5 then
     print("No Wifi connection...")
@@ -86,8 +78,8 @@ function cbhttpdone(code,data)
   else
     print(code,data)
   end
-  tmr.alarm(0,500,tmr.ALARM_SINGLE,cbslp)
-
+  rtmr=tmr.create()
+  rtmr:alarm(500,tmr.ALARM_SINGLE,cbslp)
 end
 
 function cbslp()
@@ -101,17 +93,14 @@ end
 
 print("app starting...")
 --watchdog will force deep sleep loop if the operation somehow takes too long
-tmr.alarm(1,30000,1,cbslp)
+tmr.create():alarm(30000,1,cbslp)
+
 -- init pins
 gpio.mode(pin_boost,gpio.OUTPUT)
-if (debug>0) then 
+if (deb>0) then 
   gpio.write(pin_boost,gpio.HIGH) --boost on
 else
   gpio.write(pin_boost,gpio.LOW) --boost off
-end
-if(meas_period>60) then
-if (pin_dht~="" and meas_period>60) then
-  get_dht()
 end
 
 --setup wifi
