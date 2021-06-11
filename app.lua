@@ -6,6 +6,8 @@ dofile("nodevars.lua")
 --# END settings #
 temperature = 0
 humidity = 0
+ver=0.2
+print("Tanklevel app.lua v"..ver)
 
 -- 4-20mA sensor
 function get_420()
@@ -61,7 +63,7 @@ function cbsrest()
   else
     print("WiFi connected...")
   end
-  get_sensor_Data()
+  --send measurements
   req,body=httpreq()
   if(body=="") then
     http.get(req,nil,cbhttpdone)
@@ -102,6 +104,9 @@ if (deb>0) then
 else
   gpio.write(pin_boost,gpio.LOW) --boost off
 end
+
+--read sensors before wifi startup for less ADC noise
+get_sensor_Data()
 
 --setup wifi
 swf()
