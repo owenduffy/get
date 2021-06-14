@@ -36,8 +36,18 @@ cfgvars={
 
 time_between_sensor_readings = 600000
 
+function transform()
+  dofile("csinterp.lua")
+  if level<0 then level=0 end
+  volume=csinterpolate("dam",level)/1000
+  volume=string.format(meas_fmt,volume)
+  print("Volume: ",volume)
+end
+
 function httpreq() 
   req=rest_url.."?id="..id
+--  transform()
+--  req=rest_url.."?api_key="..apikey.."&field1="..volume.."&field2="..temperature.."&field3="..humidity
   body=""
   print("req:"..req..":\nbody:"..body..":")
   return req,body
