@@ -21,8 +21,6 @@ print("Level: "..level)
 end
 
 function get_bme280()
-i2c.setup(0,pin_sda,pin_scl,i2c.SLOW)
-s=require('bme280').setup(0)
 temp,qfe,humi,qnh=s:read(altitude)
 temperature=string.format("%0.1f",temp)
 --qfe=string.format("%0.1f",qfe)
@@ -36,7 +34,7 @@ end
 
 function get_sensor_Data()
   get_420()
-  if (pin_scl~="" and pin_sda~="") then
+  if s~=nil then
     get_bme280()
   end
 end
@@ -104,10 +102,16 @@ if (deb>0) then
 else
   gpio.write(pin_boost,gpio.LOW) --boost off
 end
-
---read sensors before wifi startup for less ADC noise
-get_sensor_Data()
-
+i2c.setup(0,pin_sda,pin_scl,i2c.SLOW)
+s=require('bme280').setup(0,nil,nil,nil,nil,nil,BME280_FORCED_MODE)
+--print(s)
+if s==nil then
+  print("Failed BME280 setup.")
+else
+  get_bme280()
+end
+--read sensor before wifi startup for less ADC noise
+get_420()
 --setup wifi
 swf()
 print("app running...")

@@ -34,7 +34,7 @@ The deep sleep function used depends on an external connection which you must ma
 Tested on float firmware:
 
 ```
-odeMCU 3.0.0.0 built on nodemcu-build.com provided by frightanic.com
+NodeMCU 3.0.0.0 built on nodemcu-build.com provided by frightanic.com
 	branch: release
 	commit: d4ae3c364bd8ae3ded8b77d35745b7f07879f5f9
 	release: 
