@@ -11,6 +11,8 @@ MB1242_addr=0x70
 delay=100
 bid=0
 readings={}
+temperature=20
+velocity=331.3*(1+temperature/273.15)^0.5
 
 function write_reg(bid,dev_addr,reg_addr,data)
     i2c.start(bid)

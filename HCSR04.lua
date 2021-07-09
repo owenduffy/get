@@ -13,6 +13,8 @@ time_start=0
 time_stop=0
 distance=0
 readings={}
+temperature=20
+velocity=331.3*(1+temperature/273.15)^0.5
 
 -- send trigger signal
 function trigger()
