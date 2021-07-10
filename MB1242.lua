@@ -1,7 +1,7 @@
 print("in MB1242")
 require("cfg-MB1242")
 
-MAXIMUM_DISTANCE=20
+MAXIMUM_DISTANCE=8
 -- minimum reading interval with 20% of margin
 READING_INTERVAL=math.ceil(MAXIMUM_DISTANCE*2/340*1000*1.2)
 -- number of readings in set
@@ -41,7 +41,7 @@ end
 
 function cbMB1242_read(bid,dev_addr,reg_addr,count)
   c=read_reg(bid,dev_addr,nil,2)
-  echo_time=(c:byte(1)*256+c:byte(2))/100/340*2
+  echo_time=(c:byte(1)*256+c:byte(2))/100/343.214*2
   calculate(echo_time)
 end
 
@@ -57,8 +57,8 @@ function calculate(echo_time)
     local i
     for k,v in pairs(readings) do print(v) end
     for i=1,2 do
-      table.remove(readings,1) --remove first entry
-      table.remove(readings) --remove last entry
+--      table.remove(readings,1) --remove first entry
+--      table.remove(readings) --remove last entry
     end
     echo_time=0
     for k,v in pairs(readings) do echo_time=echo_time+v end
@@ -87,15 +87,11 @@ function cbtemp_done(temps)
   htmr:alarm(READING_INTERVAL,tmr.ALARM_AUTO,function()cbMB1242_read(bid,MB1242_addr,nil,1)end)
 end
 
-
-
 i2c.setup(bid,pin_sda,pin_scl,i2c.FAST)
 i2c.start(bid)
 if(i2c.address(bid, MB1242_addr, i2c.TRANSMITTER)) then
-  print("xx:",xx)
   --write start read command (81)
   count=write_reg(bid,MB1242_addr,null,81)
-  print(count, " bytes written")
 --  tmr.create():alarm(delay,tmr.ALARM_SINGLE,function()cbMB1242_read(bid,MB1242_addr,nil,2)end)
   --get temperature
   local t=require("ds18b20")
