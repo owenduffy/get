@@ -2,7 +2,11 @@
 
 ![Block diagram](tanklevel02.png "Block diagram")
 
-Above is a block diagram of the telemetry system.
+Above is a block diagram of the telemetry system using a 4-20mA depth sensor.
+
+![Block diagram](tanklevel03.png "Block diagram")
+
+Above is a block diagram of the telemetry system using an ultrasonic sensor (HC-SR04, MB1242, GY-US42v2).
 
 To use the code, copy init.default.lua to init.lua, and nodevars.default.lua to nodevars.lua and customise the latter to suit your needs.
 
