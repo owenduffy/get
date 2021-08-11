@@ -2,11 +2,9 @@ print("in HCSR04")
 require("cfg-HCSR04")
 
 TRIG_INTERVAL=15 -- us (minimum is 10, see HC-SR04 documentation)
-MAXIMUM_DISTANCE=20
--- minimum reading interval with 20% of margin
-READING_INTERVAL=math.ceil(((MAXIMUM_DISTANCE*2/340*1000)+TRIG_INTERVAL)*1.2)
+READING_INTERVAL=120
 -- number of readings in set
-NUM_READINGS=8
+NUM_READINGS=13
 
 -- initialize global variables
 time_start=0
@@ -40,10 +38,12 @@ function calculate()
     --average middle n-4
     local i
     for k,v in pairs(readings) do print(v) end
-    for i=1,2 do
+    for i=1,6 do
       table.remove(readings,1) --remove first entry
       table.remove(readings) --remove last entry
     end
+    print("---")
+    for k,v in pairs(readings) do print(v) end
     echo_time=0
     for k,v in pairs(readings) do echo_time=echo_time+v end
     echo_time=echo_time/table.getn(readings)
@@ -72,11 +72,8 @@ end
 
 -- init pins
 gpio.mode(pin_boost,gpio.OUTPUT)
-if (deb>0) then 
-  gpio.write(pin_boost,gpio.HIGH) --boost on
-else
-  gpio.write(pin_boost,gpio.LOW) --boost off
-end
+gpio.write(pin_boost,gpio.HIGH) --boost on
+tmr.delay(meas_delay_ms*1000) --wait for stability
 gpio.mode(pin_trig,gpio.OUTPUT)
 gpio.mode(pin_echo,gpio.INPUT,gpio.PULLUP)
 
