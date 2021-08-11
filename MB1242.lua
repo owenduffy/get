@@ -87,6 +87,9 @@ function cbtemp_done(temps)
   htmr:alarm(READING_INTERVAL,tmr.ALARM_AUTO,function()cbMB1242_read(bid,MB1242_addr,nil,1)end)
 end
 
+gpio.mode(pin_boost,gpio.OUTPUT)
+gpio.write(pin_boost,gpio.HIGH) --boost on
+tmr.delay(meas_delay_ms*1000) --wait for stability
 i2c.setup(bid,pin_sda,pin_scl,i2c.FAST)
 i2c.start(bid)
 if(i2c.address(bid, MB1242_addr, i2c.TRANSMITTER)) then
