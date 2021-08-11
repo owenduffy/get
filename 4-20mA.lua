@@ -28,6 +28,7 @@ print("Humidity: "..humidity.."%")
   package.loaded["bme280"]=nil
 end
 bid=0
+temperature=0
 i2c.setup(bid,pin_sda,pin_scl,i2c.FAST)
 s=require('bme280').setup(bid,nil,nil,nil,nil,nil,BME280_FORCED_MODE)
 if s==nil then
