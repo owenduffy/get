@@ -37,7 +37,9 @@ s=require('bme280').setup(bid,nil,nil,nil,nil,nil,BME280_NORMAL_MODE)
 if s==nil then
   print("Failed BME280 setup.")
 else
-  get_bme280()
+  if not pcall(get_bme280) then
+    print("Error: get_bme280() raised an error")
+  end
 end
 gpio.write(pin_boost,gpio.LOW) --boost off
 node.task.post(cbdistance_done)
