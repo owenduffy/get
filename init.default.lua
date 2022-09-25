@@ -1,10 +1,11 @@
 --copy to init.lua and edit cfgdefs below
 --the values correspond to cfgvars
 cfgdefs={
-"tanklevel_001",
+"garden_01",
 "",
 "",
-"Tank1",
+"20",
+"garden_001",
 "600",
 "0",
 "4-20mA",
@@ -19,6 +20,7 @@ cfgvars={
 "wifi_hostname",
 "wifi_SSID",
 "wifi_password",
+"wifi_power",
 "id",
 "meas_period"
 "altitude",

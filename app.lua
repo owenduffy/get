@@ -4,13 +4,13 @@
 --# Settings #
 require("nodevars")
 --# END settings #
-ver=0.2
-print("Tanklevel app.lua v"..ver)
+ver=0.4
+print("get app.lua v"..ver)
 
-function cbdistance_done()
+function cbain_done()
 print("in done measuring")
-  print("Distance: "..string.format(meas_fmt, distance).." Readings: "..#readings)
-  level=distance*meas_slope+meas_intercept
+--  print("ain: "..string.format(meas_fmt, ain).." Readings: "..#readings)
+  print("ain: "..string.format(meas_fmt, ain))
   swf()
 end
 
@@ -19,6 +19,7 @@ function swf()
 --  print("wifi_password: "..wifi_password)
   wifi.eventmon.register(wifi.eventmon.STA_GOT_IP,cbsrest)
   wifi.setmode(wifi.STATION) 
+  wifi.setmaxtxpower(wifi_power)
   wifi.setphymode(wifi_signal_mode)
   if client_ip ~= "" then
     wifi.sta.setip({ip=client_ip,netmask=client_netmask,gateway=client_gateway})
@@ -71,4 +72,4 @@ print("app starting...")
 --watchdog will force deep sleep loop if the operation somehow takes too long
 tmr.create():alarm(30000,1,cbslp)
 
-require(dist_sensor)
+require(ain_sensor)
