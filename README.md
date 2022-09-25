@@ -20,14 +20,14 @@ Edit the httpgetreq() definitition in init.lua to suit your REST host, eg:
 
 ```lua
 function httpreq() 
-  req=rest_url.."?api_key="..apikey.."&field1="..level.."&field2="..temperature.."&field3="..humidity
+  req=rest_url.."?api_key="..apikey.."&field3="..temperature.."&field4="..humidity.."&field5="..qnh.."&field6="..ain
   body=""
   print("req:"..req.."\nbody:"..body)
   return req,body
 end
 ```
  
-GET requests are usually fairly easy to get going, but you may find the RESTED add-in for Firefox and Chrome to be useful, also http://httpbin.org/get for testing.
+GET requests are usually fairly easy to get going, but you may find the RESTED add-in for Firefox and Chrome to be useful, also http://httpbin.org for testing.
 
 The deep sleep function used depends on an external connection which you must make for it to work properly: connect a SB or germainium diode anode to RST, cathode to GPIO16 (D0).
  
@@ -51,7 +51,7 @@ NodeMCU 3.0.0.0 built on nodemcu-build.com provided by frightanic.com
 You need to build and download a firmware module with all the above modules, and install it on the ESP8266 so that it becomes a NodeMCU.
 When you start it, it will build an empty filesystem.
 
-Then upload all of the project *.lua files to the file system, Esplorer is recommended.
+Then upload all of the project *.lua files to the file system, [Esplorer](https://github.com/4refr0nt/ESPlorer/releases) is recommended.
 
 # Configuration of a loaded NodeMCU
 
@@ -68,10 +68,18 @@ This is easily done on Devkit v1.0 comptabitle boards with Esplorer where you hi
 
 Hit reset and then ground D3 for 5s.
 
-# Calibration
+# Calibration of 4-20mA input
 There are a lot of ways to go about calibration and scaling of the output, and the code has been written to be flexible.
 
-Useful calculator tool: [4-20mA calibration constants calculator](http://owenduffy.net/calc/4-20cal.htm)
+Sources of error include:
+- Pt100 probe and wiring;
+- RTD to 4-20mA converter; and
+- 4-20mA burden and ADC calibration.
+
+Useful calculator tool: [Slope - intercept calibration constants calculator](https://owenduffy.net/calc/slope-intercept-cal.htm)
+
+![Calibration example](calex01.png "Calibration example")
+
 
 # FAQ
 
