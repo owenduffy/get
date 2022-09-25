@@ -1,16 +1,12 @@
 # A simple IoT tank level monitor for NodeMCU / Lua which measures and and submits level by [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer).
 
-![Block diagram](tanklevel02.png "Block diagram")
+![Block diagram](get02.png "Block diagram")
 
-Above is a block diagram of the telemetry system using a 4-20mA depth sensor.
-
-![Block diagram](tanklevel03.png "Block diagram")
-
-Above is a block diagram of the telemetry system using an ultrasonic sensor (HC-SR04, MB1242, GY-US42v2).
+Above is a block diagram of the telemetry system using a 4-20mA soil temperature sensor.
 
 To use the code, copy init.default.lua to init.lua, and nodevars.default.lua to nodevars.lua and customise the latter to suit your needs.
 
-![Flow chart](tanklevel01.png "Flow chart")
+![Flow chart](get01.png "Flow chart")
 
 The code supports HTTP GET and POST.
 
@@ -73,36 +69,7 @@ This is easily done on Devkit v1.0 comptabitle boards with Esplorer where you hi
 Hit reset and then ground D3 for 5s.
 
 # Calibration
-There are a lot of ways to go about calibration and scaling of the output, and the code has been written to be flexible. Here is a simple example.
-
-Lets say the tank holds 15,000l when full, is 3m deep, and we are using a 4m 4-20mA sensor, and lets say you want to display litres in the tank.
-
-## Gather calibration raw values
-
-Start by configuring the device to connect to the display service, wet meas_intercept=0 and meas_slope=1.
-
-Set the sensor to some depth (eg minimum), write down the input value (in intended display units) (A) displayed quantity (B).
-
-Set the sensor to some other depth (well away from the first), write down the input value (in intended display units) (C) displayed quantity (D).
-
-Set the sensor to some other depth (well away from the last), write down the displayed value (C) and that depth (in intended display units) (D).
-
-In our example, A=0, B=199, C=12,000, D=474.
-
-It is possible with this scheme to offset the base of the displayed value, and to scale the displayed value to end-user units,
-and the calibration process offsets errors in the sensor, ESP8266 a0 voltage divider and MCU voltage reference.
-
-## Calculate calibration constants
-
-meas_slope=(C-A)/(D-B)=43.636 (use at least four significant digits)
-
-meas_intercept=((A+C)-meas_slope*(B+D))/2=-8684.6
-
-set meas_fmt to %0.0f for 0 decimal point precision (%0.2f for 2 decimal points precision... got it).
-
-## Set calibration constants
-
-Start configuring the device to connect to the display service, and set meas_intercept meas_slope, and meas_fmt to the new calculated values.
+There are a lot of ways to go about calibration and scaling of the output, and the code has been written to be flexible.
 
 Useful calculator tool: [4-20mA calibration constants calculator](http://owenduffy.net/calc/4-20cal.htm)
 
